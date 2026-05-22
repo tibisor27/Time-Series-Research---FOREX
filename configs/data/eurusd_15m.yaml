@@ -1,0 +1,9 @@
+# EUR/USD 15-minute data from Dukascopy
+path: "data/raw/EURUSD_15m_dukascopy.csv"
+pair: "EURUSD"
+timeframe: "15m"
+timestamp_col: "timestamp"
+target_col: "close"
+tz_source: "UTC"                    # Raw data timezone
+tz_target: "America/New_York"       # ICT concepts use ET
+filter_weekends: true
