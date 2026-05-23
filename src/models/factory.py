@@ -15,9 +15,6 @@ def get_sklearn_model(cfg: ModelConfig) -> SklearnModel:
     Protocolul SklearnModel garanteaza ca modelul are:
         .fit(X: np.ndarray, y: np.ndarray)
         .predict(X: np.ndarray) -> np.ndarray
-
-    Ridge() si LinearRegression() sunt compatibile cu protocolul
-    fara wrapper — ele au deja aceste metode nativ.
     """
     arch = cfg.arch.lower()
 
