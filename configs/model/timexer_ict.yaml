@@ -1,0 +1,13 @@
+name: timexer_ict
+type: neuralforecast
+arch: TimeXer
+n_series: 1
+patch_len: 12
+hidden_size: 128
+n_heads: 4
+e_layers: 2
+d_ff: 256
+factor: 1
+dropout: 0.1
+use_norm: true
+use_futr_exog: true       # KEY: ICT version USES futr_exog (Kill Zones, Macro Times)

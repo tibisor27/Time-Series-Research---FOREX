@@ -1,0 +1,4 @@
+name: ols_baseline
+type: sklearn
+arch: linear_regression
+params: {}

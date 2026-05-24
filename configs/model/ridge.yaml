@@ -1,0 +1,8 @@
+# Ridge Regression — Karpathy Baseline (Treapta 0)
+# Modelul cel mai simplu. Dacă Ridge nu vede semnal,
+# nu are sens să mergi la XGBoost sau TimeXer.
+name: ridge_baseline
+type: sklearn
+arch: ridge
+params:
+  alpha: 10.0

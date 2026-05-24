@@ -1,0 +1,6 @@
+name: lstm
+type: neuralforecast
+arch: LSTM
+encoder_hidden_size: 128
+encoder_n_layers: 2
+decoder_hidden_size: 64
