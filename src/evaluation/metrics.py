@@ -1,26 +1,3 @@
-"""
-Evaluation Metrics — all metric calculations in one testable module.
-
-(B) Return-space metrics (the ones a quant actually trusts):
-    - IC               : Spearman correlation between predicted and actual log-returns
-    - IR               : Information Ratio (mean IC / std IC across sub-windows)
-    - Sharpe_net       : Annualized Sharpe of a sign(prediction)-position strategy net of costs
-    - Sortino_net      : Sharpe variant penalizing only downside volatility
-    - MaxDD_pct        : Maximum drawdown of the equity curve in percentage
-    - ProfitFactor     : Gross wins / gross losses
-    - HitRate          : Fraction of profitable windows
-
-The H-window protocol assumed by the return-space metrics:
-    - The rolling forecast emits H predictions per window.
-    - For each window k, anchor = actual[k*H - 1] (last known truth before forecast).
-    - End-of-window prediction = predicted[k*H + H - 1].
-    - End-of-window actual     = actual[k*H + H - 1].
-    - predicted_log_return     = log(end_pred / anchor)
-    - actual_log_return        = log(end_actual / anchor)
-    - position                 = sign(predicted_log_return)
-    - realized PnL             = position * actual_log_return - cost_log
-"""
-
 from __future__ import annotations
 import pandas as pd
 import numpy as np
@@ -64,19 +41,19 @@ def compute_metrics_returns(
         ic_pearson, ic_spearman = 0.0, 0.0
 
     # ── Financial Metrics ─────────────────────────────────────
-    # Direction Accuracy: modelul a prezis semnul corect?
+    # Direction Accuracy
     signs_match = np.sign(y_pred) == np.sign(y_true)
     direction_pct = float(signs_match.mean() * 100)
 
-    # Strategy Returns: tranzacționăm bazat pe semnul predicției
+    # Strategy Returns
     strategy_returns = np.sign(y_pred) * y_true
 
-    # Sharpe Ratio (anualizat)
+    # Sharpe Ratio
     sr_mu = float(np.mean(strategy_returns))
     sr_sd = float(np.std(strategy_returns, ddof=1))
     sharpe = (sr_mu / sr_sd * np.sqrt(bars_per_year)) if sr_sd > 1e-12 else 0.0
 
-    # Profit Factor: câștiguri / pierderi
+    # Profit Factor (annualized)
     wins = float(np.sum(strategy_returns[strategy_returns > 0]))
     losses = float(np.abs(np.sum(strategy_returns[strategy_returns <= 0])))
     pf = (wins / losses) if losses > 1e-12 else 0.0
@@ -102,7 +79,7 @@ def compute_metrics_returns(
 
 
 def print_metrics(model_name: str, metrics: dict) -> None:
-    """Afișează metricile într-un format ușor de citit."""
+    
     print(f"\n{'=' * 50}")
     print(f"  {model_name}")
     print(f"{'=' * 50}")
@@ -122,16 +99,7 @@ def print_metrics(model_name: str, metrics: dict) -> None:
 
 
 def build_comparison_table(all_results: list[dict]) -> pd.DataFrame:
-    """
-    Construiește un tabel Pandas sortabil din lista de rezultate.
 
-    Usage (în Notebook):
-        all_results = []
-        all_results.append({"Model": "OLS", **compute_metrics_returns(y_test, pred_ols)})
-        all_results.append({"Model": "Ridge", **compute_metrics_returns(y_test, pred_ridge)})
-        table = build_comparison_table(all_results)
-        display(table)
-    """
     df = pd.DataFrame(all_results)
     if "Direction_%" in df.columns:
         df = df.sort_values("Direction_%", ascending=False).reset_index(drop=True)
