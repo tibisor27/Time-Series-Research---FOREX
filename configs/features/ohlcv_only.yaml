@@ -1,0 +1,14 @@
+# OHLCV features only (historical exogenous)
+groups:
+  - ohlcv
+
+hist_cols:
+  - log_open
+  - log_high
+  - log_low
+  - log_range
+  - log_volume
+  - volume_imbalance
+
+
+futr_cols: []

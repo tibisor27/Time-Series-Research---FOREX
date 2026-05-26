@@ -1,0 +1,42 @@
+groups:
+  - ohlcv
+  - ict
+  - cyclical
+  - technical
+  - price_structure
+
+hist_cols:
+  - log_open
+  - log_high
+  - log_low
+  - log_range
+  - log_volume
+  - volume_imbalance
+  - atr_14
+  - volatility_1h
+  - volatility_4h
+  - volatility_24h
+  - momentum_1h
+  - momentum_4h
+  - momentum_24h
+  - zscore_50
+  - rsi_14
+  - session_position
+  - daily_position
+  - body_ratio
+  - body_vs_avg
+
+futr_cols:
+  - is_london_kz
+  - is_ny_kz
+  - is_asian_kz
+  - is_macro_time
+  - hour_sin
+  - hour_cos
+  - is_post_weekend_shock
+  - is_monday
+  - is_tuesday
+  - is_wednesday
+  - is_thursday
+  - is_friday
+  - is_sunday
