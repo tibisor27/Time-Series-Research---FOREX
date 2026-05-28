@@ -1,0 +1,9 @@
+# Evaluation & trading simulation parameters
+H: 12                    # Forecast horizon (candles ahead): 4 × 15min = 1h
+input_size: 96          # Lookback window: 96 × 15min = 24h
+test_size: 0.2          # 20% din dataset (dinamic, se adaptează la mărimea datelor)
+n_folds: 6              # Numarul de fold-uri cronologice pentru Walk-Forward Validation
+
+# Trading simulation
+spread_pips: 1.5
+pip_value: 0.0001
